@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html lang="en">
+	<head>
+		<title>OTP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="/">𝙎𝙚𝙘𝙪𝙧𝙚<b>𝙍𝙎</b></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+		  <li class="nav-item active">
+			  <a class="nav-link" href="/"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+		  </li>
+		  <li class="nav-item">
+			  <a class="nav-link" href="/account/two_factor"><i class="fa fa-cogs"></i> Account Settings</a>
+		  </li>
+		  {% if admin %}
+		  <li class="nav-item">
+			  <a class="nav-link " href="/admin" tabindex="-1" aria-disabled="true"><i class="fa fa-user-circle-o"></i> Admin</a>
+		  </li>
+ 		  {% endif %}
+		</ul>
+
+		 <a class="nav-link text-white" href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+	  </div>
+	</nav>
+
+	<br/>
+	<div class="container justify-content-center center-block text-center bg-white">
+		<h1>Please enter your OTP token</h1>
+		<br/>
+		<h5>The requested resource ({{request.path | trim}}) is protected and needs you to enter in your two factor authentication token so that we can verify that this is {{request.user}}.</h5>
+		<br/>
+		<form class="form" method="POST" onsubmit='this.submit();this.reset();return false;'>
+			{% csrf_token %}
+		    <input class="form-control " type="number" id="token" name="token" placeholder="token" autofocus>
+			<br/>
+		  <button class="btn btn-success" type="submit">Verify</button>
+		</form>
+		<br/><br/>
+	<!-- Footer -->
+		<section id="footer">
+		 &copy;{{PROJECT_NAME}} - {{COMPANY_NAME }}
+		</section>
+
+</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+			{% include 'session_security/all.html' %}
+
+	</body>
+</html>

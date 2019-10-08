@@ -1,0 +1,51 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>500</title>
+    <link rel="icon" href="{% static "images/logo_notext.png" %}" >
+</head>
+<body>
+
+<style>
+    body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1600A5;
+  color: #ffffff;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+.wrapper {
+  width: 80%;
+  max-width: 700px;
+}
+
+.center {
+
+    text-align: center;
+
+}
+
+.white {
+    color: white;
+}
+</style>
+
+<div class="wrapper">
+    <div style="margin: 0 auto !important; text-align: center !important; display: block">
+     <img src="{% static 'images/logo.png' %}" height="150">
+    </div> <br/><br/><br/>
+  <p>A problem has been detected and and the website has been shut down to prevent damage to your eyes and brain.</p>
+  <p class="center">500 INTERNAL SERVER ERROR</p>
+  <p>If this is the first time you've seen this error screen, restart your computer. If this screen appears again, follow these steps:</p>
+  <p>Actually, there are no steps to follow. Try loading this page again in a day, a week, or a year.</p>
+  <p>Technical information:</p>
+  <p>*** Nothing to see here </p>
+  <a href="/" class="white center"><p>*** Go Back *** </p></a>
+</div>
+</body>
+</html>

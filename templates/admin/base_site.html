@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+
+{% load staticfiles %}
+
+{% block extrahead %}
+    <link rel="icon" href="{% static "images/logo_notext.png" %}" >
+{% endblock %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+
+    <style>
+        body {
+            background-color: #2e3141;
+            background-image: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9)), url("{% static 'images/bg.jpg' %}") !important;
+            background-size: auto, cover !important;
+            background-attachment: fixed, fixed !important;
+            background-position: center, center !important;
+        }
+    </style>
+<h1 id="site-name" >
+    <a href="{% url 'admin:index' %}">
+        𝙎𝙚𝙘𝙪𝙧𝙚<b>𝙍𝙎</b> Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
