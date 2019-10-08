@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600");
+@import url("font-awesome.min.css");
+
+	body {
+		background-image:  -moz-linear-gradient(top, rgba(255, 0, 0, 0) 75%, rgba(0, 0, 0, 0.65)), url("images/bg.jpg");
+		background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.7) 75%, rgba(0, 0, 0, 0.65)), url("images/bg.jpg");
+		background-image:  -ms-linear-gradient(top, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.65)), url("images/bg.jpg");
+		background-image:  linear-gradient(top, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.65)), url("images/bg.jpg");
+		background-position: top left, bottom left, auto;
+		background-size: auto, 100% 100%, cover;
+		background-attachment: fixed;
+		background-repeat: repeat, no-repeat, auto;
+		position: relative;
+		background-color: #150C07;
+		line-height: 1.75em;
+		/*overflow-x: hidden;*/
+		/*overflow-y: auto;*/
+	}
+
+#footer {
+	bottom: 2px !important;
+	left: 5px !important;
+	display: block;
+	position: fixed;
+	color: whitesmoke;
+
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.larger {
+	font-size: larger;
+}
+
+.card-body {
+	padding: 10px !important;
+}
+
+.bg-danger {
+	color: whitesmoke;
+}
+
+.bg-danger .card-footer .text-muted {
+	color: whitesmoke !important;
+}
+
+.center {
+	margin: 0 auto !important;
+	justify-content: center !important;
+	text-align: center !important;
+	padding: 10px;
+	background-color: whitesmoke;
+}
+
+.col-md-5, .col-md-offset-3, form {
+
+	position: relative;
+	margin: 0 auto !important;
+ 	display: inline-block;
+
+
+
+}

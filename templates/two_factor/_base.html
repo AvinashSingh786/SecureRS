@@ -1,0 +1,74 @@
+{% load static %}
+<html lang="en">
+	<head>
+		<title>Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="/">𝙎𝙚𝙘𝙪𝙧𝙚<b>𝙍𝙎</b></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+		  <li class="nav-item ">
+			  <a class="nav-link" href="/"><i class="fa fa-home"></i> Home </a>
+		  </li>
+             {% if user.is_authenticated %}
+		  <li class="nav-item">
+			  <a class="nav-link" href="/account/two_factor"><i class="fa fa-cogs"></i> Account Settings</a>
+		  </li>
+		  {% if user.is_superuser %}
+		  <li class="nav-item">
+			  <a class="nav-link " href="/admin" tabindex="-1" aria-disabled="true"><i class="fa fa-user-circle-o"></i> Admin</a>
+		  </li>
+ 		  {% endif %}
+		</ul>
+
+		 <a class="nav-link text-white" href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+          {% endif %}
+	  </div>
+	</nav>
+    <br/><br/>
+<div class="container justify-content-center text-center center-block center">
+  {% block content_wrapper %}
+      {% block content %}
+      {% endblock %}
+  {% endblock %}
+</div>
+       {% if user.is_authenticated %}
+    <script>
+        if (window.location.href.indexOf("account/login") != -1) {
+            window.location.href = "/account/two_factor/setup";
+        }
+    </script>
+            <div class="container text-center">
+                <br/><br/><b>Note: </b> You will need to have enabled 2-factor authentication to enabled for PDE download. <br/>
+                    You can enable 2-factor authentication <a href="/account/two_factor/setup/"> here once you have logged in.</a>
+            </div>
+    {% endif %}
+
+	<!-- Footer -->
+		<section id="footer">
+		 &copy;{{PROJECT_NAME}} - {{COMPANY_NAME }}
+		</section>
+
+    </div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+            <script type="application/javascript">
+                function openfile(url) {
+                    window.open(url, "_blank");
+                }
+            </script>
+
+	</body>
+</html>

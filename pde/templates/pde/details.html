@@ -1,0 +1,147 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html lang="en">
+	<head>
+		<title>{{PROJECT_NAME}}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="/">𝙎𝙚𝙘𝙪𝙧𝙚<b>𝙍𝙎</b></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+		  <li class="nav-item active">
+			  <a class="nav-link" href="/"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+		  </li>
+		  <li class="nav-item">
+			  <a class="nav-link" href="/account/two_factor"><i class="fa fa-cogs"></i> Account Settings</a>
+		  </li>
+		  {% if admin %}
+		  <li class="nav-item">
+			  <a class="nav-link " href="/admin" tabindex="-1" aria-disabled="true"><i class="fa fa-user-circle-o"></i> Admin</a>
+		  </li>
+ 		  {% endif %}
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			{% csrf_token %}
+		  <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" value="{{ search }}">
+		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
+		 <a class="nav-link text-white" href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+	  </div>
+	</nav>
+
+
+	<div class="container">
+		 {% if not len %}
+              <br/>
+              <h1 class="text-center">No data found</h1>
+          {% else %}
+        <br/>
+		<h4 class="text-center user "><a href="/" class="btn btn-info pull-left"><</a> User: {{ user }} </h4><br />
+         {% endif %}
+		<div class="card-columns">
+
+		 {%  for p in pde %}
+			 {% if p.rank >= MALICIOUS %}
+                 <div class="card border-danger">
+                     <h5 class="card-header bg-danger"><b class="text-white">File:</b> {{ p.filename  | trim | truncatechars:10 }}</h5>
+             {% elif p.rank >= SUSPICIOUS %}
+                 <div class="card border-warning">
+                     <h5 class="card-header bg-warning"><b class="text-white">File:</b> {{ p.filename  | trim | truncatechars:10 }}</h5>
+             {% else %}
+                 <div class="card border-success">
+                     <h5 class="card-header bg-success"><b class="text-white">File:</b> {{ p.filename  | trim | truncatechars:10 }}</h5>
+             {% endif %}
+
+				<div class="card-body">
+				  <p class="card-text">
+					  <i class="fa fa-desktop"></i> {{ p.machine }}  <span class="pull-right"><i class="fa fa-at"></i>  {{ p.ip }} <br/></span> <br/>
+                      <div class="text-center">
+					{% if p.rank >= MALICIOUS %}
+					<span class="badge badge-pill badge-danger"><b class="larger">{{ p.rank }}</b></span> <br/>
+					 {% elif p.rank >= SUSPICIOUS %}
+					<span class="badge badge-pill badge-warning"><b class="larger">{{ p.rank }}</b></span> <br/>
+					{% else %}
+					<span class="badge bbadge-pill badge-success"><b class="larger">{{ p.rank }}</b></span> <br/>
+					{% endif %}
+					  	<button class="button text-center center-block align-content-center" onclick="openfile('/{{ p.pde }}')" ><i class="fa fa-download"></i></button><br/><br/>
+					  </div>
+					  <span ><b>MD5: </b>{{ p.hash   }}</span>
+				  </p>
+				</div>
+				<div class="card-footer">
+				  <small class="text-muted"> {{ p.date }}</small>
+				</div>
+			  </div>
+
+		 {% endfor %}
+		</div>
+		<br/><br/><br/>
+		<div aria-label="..." class=" text-center">
+		  <ul class="pagination text-center justify-content-center">
+			{% if pde.has_previous %}
+				<li class="page-item"><a class="page-link" href="?page={{ pde.previous_page_number }}&search={{ request.GET.search }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+			{% else %}
+				 <li class="page-item disabled">
+				  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+				</li>
+			{% endif %}
+
+			{% if pde.number|add:'-4' > 1 %}
+				<li class="page-item"><a class="page-link" href="?page={{ pde.number|add:'-5' }}&search={{ request.GET.search }}">&hellip;</a></li>
+			{% endif %}
+
+			{% for i in pde.paginator.page_range %}
+			  {% if pde.number == i %}
+					<li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
+				{% elif i > pde.number|add:'-5' and i < pde.number|add:'5' %}
+					<li class="page-item"><a class="page-link" href="?page={{ i }}&search={{ request.GET.search }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+
+			{% if pde.paginator.num_pages > pde.number|add:'4' %}
+				<li class="page-item"><a class="page-link" href="?page={{ pde.number|add:'5' }}&search={{ request.GET.search }}">&hellip;</a></li>
+			{% endif %}
+
+			{% if pde.has_next %}
+				<li class="page-item"><a class="page-link" href="?page={{ pde.next_page_number }}&search={{ request.GET.search }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+			{% else %}
+				<li class="page-item disabled">
+				  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+				</li>
+			{% endif %}
+
+		  </ul>
+	</div>
+<br/><br/>
+	<!-- Footer -->
+		<section id="footer">
+		 &copy;{{PROJECT_NAME}} - {{COMPANY_NAME }}
+		</section>
+
+    </div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+            <script type="application/javascript">
+                function openfile(url) {
+                    window.open(url, "_blank");
+                }
+            </script>
+			{% include 'session_security/all.html' %}
+
+	</body>
+</html>
