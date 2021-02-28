@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django_otp.decorators import otp_required
 import hashlib
 from django.dispatch import receiver
@@ -30,7 +30,7 @@ from django.http import HttpResponse
 
 
 from django_encrypted_filefield.crypt import Cryptographer
-
+from profile import profile
 @login_required
 @csrf_protect
 def index(request):
@@ -120,7 +120,10 @@ def trim(value):
         return value.split('\\')[-1]
 
 
+
 @api_view(['POST', ])
+@profile
+@csrf_exempt
 def add(request):
     """Endpoints for listing and retrieving PDE."""
     parser_classes = (FileUploadParser,)
@@ -130,13 +133,13 @@ def add(request):
     rank = float(strip_tags(request.POST.get("rank", False)))
     filename = strip_tags(request.POST.get("filename", False))
     pde = request.FILES.get('pde', False)
-
+    originHash = strip_tags(request.POST.get('md5sum', False))
     key = request.META.get('HTTP_X_API_KEY', False).split(" ")[-1]
     api = APIKey.objects.get(prefix=key.split(".")[0])
 
     response = {"status": 'Error'}
     test = ""
-    if ip and machine and user and rank and filename and pde:
+    if ip and machine and user and rank and filename and pde and originHash:
         n = PDE.objects.create(ip=ip, machine=machine, user=user, rank=rank, filename=filename, pde=pde, hash=test, api=api)
         response = {"status": 'Success'}
         file = request.FILES.get('pde', False)
@@ -150,7 +153,11 @@ def add(request):
         md5 = md5.hexdigest()
         file.seek(0)
         n.hash = md5
-        n.save()
+        if md5 == originHash:
+            n.save()
+        else: 
+            n.delete()
+            response = {"status": 'Error', "message": 'md5sum hash does not match pde'}
     permission_classes = (HasAPIKey,)
     return Response(response)
 
