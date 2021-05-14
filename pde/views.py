@@ -31,6 +31,8 @@ from django.http import HttpResponse
 
 from django_encrypted_filefield.crypt import Cryptographer
 from profile import profile
+
+
 @login_required
 @csrf_protect
 def index(request):
@@ -79,16 +81,16 @@ def details(request, user):
     search = request.GET.get('search', '')
     if search.isdigit():
         data1 = data.filter(filename__icontains=search)
-        data2 = data.filter(hash__icontains=search)
+        # data2 = data.filter(hash__icontains=search)
         data3 = data.filter(ip__contains=search)
         data4 = data.filter(rank__gt=search)
-        data = data1 | data2 | data3 | data4
+        data = data1 | data3 | data4
     else:
         data1 = data.filter(rank__icontains=search)
-        data2 = data.filter(hash__icontains=search)
+        # data2 = data.filter(hash__icontains=search)
         data3 = data.filter(ip__contains=search)
         data4 = data.filter(filename__icontains=search)
-        data = data1 | data2 | data3 | data4
+        data = data1 | data3 | data4
 
     paginator = Paginator(data, 10)
     page = request.GET.get('page')
@@ -120,7 +122,6 @@ def trim(value):
         return value.split('\\')[-1]
 
 
-
 @api_view(['POST', ])
 @profile
 @csrf_exempt
@@ -138,9 +139,13 @@ def add(request):
     api = APIKey.objects.get(prefix=key.split(".")[0])
 
     response = {"status": 'Error'}
+    print(ip, machine, user, rank, filename, pde, originHash, api)
     test = ""
-    if ip and machine and user and rank and filename and pde and originHash:
-        n = PDE.objects.create(ip=ip, machine=machine, user=user, rank=rank, filename=filename, pde=pde, hash=test, api=api)
+    if ip and machine and user and rank != "" and filename and pde and originHash and api:
+        print("BEFORE")
+        n = PDE.objects.create(ip=ip, machine=machine, user=user, rank=rank,
+                               filename=filename, pde=pde, hash=originHash, api=api)
+        print("After")
         response = {"status": 'Success'}
         file = request.FILES.get('pde', False)
         md5 = hashlib.md5()
@@ -155,9 +160,10 @@ def add(request):
         n.hash = md5
         if md5 == originHash:
             n.save()
-        else: 
+        else:
             n.delete()
-            response = {"status": 'Error', "message": 'md5sum hash does not match pde'}
+            response = {"status": 'Error',
+                        "message": 'md5sum hash does not match pde'}
     permission_classes = (HasAPIKey,)
     return Response(response)
 
@@ -182,7 +188,7 @@ def test_receiver(request, user, device, **kwargs):
 @csrf_protect
 def get(request, path, ):
     token = request.POST.get("token", None)
-    if token: # token
+    if token:  # token
         if django_otp.match_token(request.user, token):
             if request.user.is_staff:
                 pde = PDE.objects.all()
@@ -203,9 +209,11 @@ def get(request, path, ):
                               'MD5: %(md5)s\n' \
                               % {'username': request.user.get_username(), 'path': path, 'md5': m.hexdigest()}
                     print(message)
-                    request.user.email_user(subject='PDE Download Success', message=message)
+                    request.user.email_user(
+                        subject='PDE Download Success', message=message)
 
-                    response = HttpResponse(content, content_type=magic.Magic(mime=True).from_buffer(content))
+                    response = HttpResponse(content, content_type=magic.Magic(
+                        mime=True).from_buffer(content))
                     response['Content-Disposition'] = 'attachment; filename=' + path
                     return response
 

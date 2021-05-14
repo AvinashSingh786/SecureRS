@@ -5,10 +5,10 @@ import threading
 import psutil
 import hashlib
 
-API_KEY               = "qSF03D1u.mLN6YHxn8vXQFV4PetZ5ghX34ID5e2Y4"
-API_SECRET            = "qSF03D1u"
-SUCCESS               = 0
-COUNTER               = 1
+API_KEY = "IAWMMTs0.cHddQPXa343hvAKcUY7FZHOyyT8Vo55h"
+API_SECRET = "IAWMMTs0"
+SUCCESS = 0
+COUNTER = 1
 
 
 @profile
@@ -35,7 +35,8 @@ def make_request(i):
     headers = {'Api-Secret-Key': API_SECRET, 'Api-Token': API_KEY,
                'X-Api-Key': API_KEY, 'Authorization': 'Token ' + API_KEY, 'Token': API_KEY}
     # 'content-type': 'multipart/form-data',
-    r = requests.post("https://localhost:8000/pde/add/", data=data, headers=headers, files=files, verify=False)
+    r = requests.post("https://localhost:8000/pde/add/",
+                      data=data, headers=headers, files=files, verify=False)
     # r = requests.post("https://localhost:8000/pde/add/", data=data, headers=headers, files=files, verify=False)
     print(r.text)
     if "Success" in r.text:
@@ -55,6 +56,7 @@ def con(c):
     for i in range(c):
         threading.Thread(target=make_request, args=(i,)).start()
 
-con(10)
-# seq(10)
+
+# con(10)
+seq(10)
 stats()
