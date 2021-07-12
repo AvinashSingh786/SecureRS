@@ -12,17 +12,23 @@ This tool can be run from a docker container that can be built using the dockerf
 ```bash
 git clone git@github.com:AvinashSingh786/SecureRS.git
 cd SecureRS
-pip install -r requirements.txt
+python3 -m pip install --user virtualenv
+apt-get install python3-venv python3-magic # for Linux
+python3 -m venv venv
+source env/bin/activate # for Linux
+pip3 install python-magic-bin # for Windows
+.\env\Scripts\activate # for Windows
+(venv)$ pip3 install -r requirements.txt 
 ```
 
 ## Usage
 Run the following commands to configure and run the engine.
 
 ```bash
-(venv)$ python manage.py createsuperuser  # Create a super user that you will use as the admin
-(venv)$ python manage.py makemigrations   # This sets up the storage engine and databases
-(venv)$ python manage.py migrate          # This creates the databases and interfaces
-(venv)$ python manage.py runsslserver 0.0.0.0:8000  
+(venv)$ python3 manage.py makemigrations pde  # This sets up the storage engine and databases
+(venv)$ python3 manage.py migrate          # This creates the databases and interfaces
+(venv)$ python3 manage.py createsuperuser  # Create a super user that you will use as the admin
+(venv)$ python3 manage.py runsslserver 0.0.0.0:8000  
 ``` 
 
 ## Features

@@ -166,6 +166,8 @@ SESSION_COOKIE_HTTPONLY = True
 
 
 DEFAULT_FILE_STORAGE = "randomfilestorage.storage.RandomFileSystemStorage"
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 SITE_URL = "https://localhost:8000/"
 
 REST_FRAMEWORK = {
