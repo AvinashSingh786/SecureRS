@@ -1,13 +1,13 @@
 # SecureRS
-Secure Readiness Storage
+Secure Readiness Storage - A model prototype that will securely verify, encrypt and store Potential Digital Evidence.
 
-#About
+## About
 This tool was designed for research in the field of Digital Forensics.
 
 This prototype solution was created with Digital Forensic Readiness processes for secure storage and retrieval or potential digital evidence. This solution is generic and can be used for any application that requires secure storage. There is also an API built in that allows integration with any system or tool. From the admin panel you can create and manage API keys and routes.
 
 ## Installation
-This tool can be run from a docker container that can be built using the dockerfile. Alternatively, you can clone this repository and install the python requirements. It is recommended you run this in a virtual environment to further ensure compatibility and added security. 
+This tool can be run from a docker container that can be built using the dockerfile. Alternatively, you can clone this repository and install the python requirements. This tool only works for Python3 and was tested with Python3.7. It is recommended you run this in a virtual environment to further ensure compatibility and added security. 
 
 ```bash
 git clone git@github.com:AvinashSingh786/SecureRS.git
@@ -25,7 +25,19 @@ Run the following commands to configure and run the engine.
 (venv)$ python manage.py runsslserver 0.0.0.0:8000  
 ``` 
 
-## IMPORTANT
+## Features
+- OTP Login + Download (TOTP, YubiKey)
+- REST API for Ingestion
+- Two Factor Auth
+- Secure Cookies
+- Integrity Verification
+- Encrypted Storage
+- Security Headers
+- Email Config
+- Session Security 
+- Customizable 
+#
+# IMPORTANT!
 If you plan on using this tool in production please change the following in the settings.py file:
 - SECRET_KEY
 - DEBUG
@@ -41,9 +53,12 @@ If you plan on using this tool in production please change the following in the 
 - EMAIL_HOST_USER
 - EMAIL_HOST_PASSWORD
  
+## Screenshots
 Below are screenshots of the tool.
-<img src="https://github.com/AvinashSingh786/W3RS/raw/master/static/assets/img/home.png" />
-<img src="https://github.com/AvinashSingh786/W3RS/raw/master/static/assets/img/details.png" />
+<img src="https://github.com/AvinashSingh786/SecureRS/blob/master/screenshots/Screenshot%202021-07-12%20160738.png?raw=true" />
+<img src="https://github.com/AvinashSingh786/SecureRS/blob/master/screenshots/Screenshot%202021-07-12%20164401.png?raw=true" />
+<img src="https://github.com/AvinashSingh786/SecureRS/blob/master/screenshots/Screenshot%202021-07-12%20164418.png?raw=true" />
+<img src="https://github.com/AvinashSingh786/SecureRS/blob/master/screenshots/Screenshot%202021-07-12%20164456.png?raw=true" />
  
 ## Testing environments
   - Windows 10
@@ -70,3 +85,4 @@ Below are screenshots of the tool.
 MIT License
 
 ## Publications
+- In-progress
