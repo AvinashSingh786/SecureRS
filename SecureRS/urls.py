@@ -25,6 +25,7 @@ from django.views.static import serve
 from django.contrib.auth.views import LogoutView
 
 admin.site.__class__ = AdminSiteOTPRequired
+admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +33,8 @@ urlpatterns = [
     url(r'', include(tf_urls)),
     url(r'^pde/', include('pde.urls')),
     url(r'^$', RedirectView.as_view(url='pde/', permanent=False), name='index'),
-    url(r'^logout/$', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    url(r'^logout/$', LogoutView.as_view(),
+        {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'session_security/', include('session_security.urls')),
 ]
 
@@ -42,7 +44,7 @@ if settings.DEBUG:
         # url(r'pde/file/(?P<path>.*)$', serve, {
         #     'document_root': settings.MEDIA_ROOT,
         # }),
-#         # url(r'^static/(?P<path>.*)$', serve, {
-#         #     'document_root': settings.MEDIA_ROOT + "/",
-#         # }),
+        #         # url(r'^static/(?P<path>.*)$', serve, {
+        #         #     'document_root': settings.MEDIA_ROOT + "/",
+        #         # }),
     ]

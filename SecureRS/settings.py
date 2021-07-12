@@ -184,8 +184,8 @@ DEFF_SALT = "Aasd^*&$E%%#FVTB"  # @TODO change details
 DEFF_PASSWORD = "SeC#RS_D3m0"  # @TODO change details
 DEFF_FETCH_URL_NAME = ""
 
-SUSPICIOUS = 30  # This goes in hand with the rank parameter in the PDE
-MALICIOUS = 50  # This goes in hand with the rank parameter in the PDE
+SUSPICIOUS = 10  # This goes in hand with the rank parameter in the PDE
+MALICIOUS = 18    # This goes in hand with the rank parameter in the PDE
 
 API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
 
@@ -193,4 +193,3 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SESSION_SECURITY_WARN_AFTER = 350
 SESSION_SECURITY_EXPIRE_AFTER = 50000
-
