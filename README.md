@@ -6,6 +6,7 @@ This tool was designed for research in the field of Digital Forensics.
 
 This prototype solution was created with Digital Forensic Readiness processes for secure storage and retrieval or potential digital evidence. This solution is generic and can be used for any application that requires secure storage. There is also an API built in that allows integration with any system or tool. From the admin panel you can create and manage API keys and routes.
 
+For more details with a step by step guide please consult the  [`UserManual.pdf`](https://github.com/AvinashSingh786/SecureRS/raw/master/UserManual.pdf).  
 ## Installation
 This tool can be run from a docker container that can be built using the dockerfile. Alternatively, you can clone this repository and install the python requirements. This tool only works for Python3 and was tested with Python3.7. It is recommended you run this in a virtual environment to further ensure compatibility and added security. 
 
