@@ -16,9 +16,9 @@ cd SecureRS
 python3 -m pip install --user virtualenv
 apt-get install python3-venv python3-magic # for Linux
 python3 -m venv venv
-source env/bin/activate # for Linux
+source venv/bin/activate # for Linux
 pip3 install python-magic-bin # for Windows
-.\env\Scripts\activate # for Windows
+.\venv\Scripts\activate # for Windows
 (venv)$ pip3 install -r requirements.txt 
 ```
 
