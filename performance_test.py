@@ -4,6 +4,7 @@ from time import sleep
 import threading
 import psutil
 import hashlib
+import datetime
 
 API_KEY = "IAWMMTs0.cHddQPXa343hvAKcUY7FZHOyyT8Vo55h"
 API_SECRET = "IAWMMTs0"
@@ -14,7 +15,7 @@ COUNTER = 1
 @profile
 def make_request(i):
     global SUCCESS, COUNTER
-    name = "onem.img"
+    name = "UserManual.docx"
     hash_md5 = hashlib.md5()
     with open(name, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
@@ -22,7 +23,7 @@ def make_request(i):
     data = {
         'ip': '192.168.1.120',
         'machine': 'IronMachine',
-        'filename': 'Evi' + str(COUNTER),
+        'filename': str(datetime.datetime.now()),
         'user': 'Avinash',
         'rank': i,
         'md5sum': hash_md5.hexdigest(),
@@ -32,7 +33,7 @@ def make_request(i):
     files = {'pde': open(name, 'rb')}
     # headers = { 'Api-Secret-Key': 'Zm4QsmdXsobX', 'Api-Token': 'f8000c5bb202edd77e994658f02949a2'} #old
 
-    headers = {'Api-Secret-Key': API_SECRET, 'Api-Token': API_KEY,
+    headers = {'Api-Secret-Key': API_SECRET, 'Api-Token': API_KEY, 'MD5SUM': hash_md5.hexdigest(),
                'X-Api-Key': API_KEY, 'Authorization': 'Token ' + API_KEY, 'Token': API_KEY}
     # 'content-type': 'multipart/form-data',
     r = requests.post("https://localhost:8000/pde/add/",
@@ -58,5 +59,5 @@ def con(c):
 
 
 # con(10)
-seq(10)
+seq(1)
 stats()

@@ -44,11 +44,13 @@
 		<br/>
 		<h5>The requested resource ({{request.path | trim}}) is protected and needs you to enter in your two factor authentication token so that we can verify that this is {{request.user}}.</h5>
 		<br/>
-		<form class="form" method="POST" onsubmit='this.submit();this.reset();return false;'>
+		<form class="form" method="POST" onsubmit='this.submit();return false;'>
 			{% csrf_token %}
 		    <input class="form-control " type="number" id="token" name="token" placeholder="token" autofocus>
 			<br/>
-		  <button class="btn btn-success" type="submit">Verify</button>
+		  <button class="btn btn-success" type="submit" id="verify">Verify</button>
+		  <br/><br/>
+		  <div >{{message}}</div>
 		</form>
 		<br/><br/>
 	<!-- Footer -->
@@ -61,6 +63,13 @@
 		<!-- Scripts -->
 			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
 			<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+			<script>
+				$("#verify").click(function(){
+					$("#token").prop('readonly', true);
+					
+				});
+				
+			</script>
 			{% include 'session_security/all.html' %}
 
 	</body>

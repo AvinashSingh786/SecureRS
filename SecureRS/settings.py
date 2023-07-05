@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework_api_key',
     # "djangosecure",
     'session_security',
+    'encrypted_files'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,8 @@ MIDDLEWARE = [
     # "djangosecure.middleware.SecurityMiddleware",
     'session_security.middleware.SessionSecurityMiddleware',
 ]
+
+ 
 
 ROOT_URLCONF = 'SecureRS.urls'
 
@@ -86,6 +89,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+FILE_UPLOAD_HANDLERS = [
+    "handler.uploadhandler.HashFileUploadHandler",
+    "encrypted_files.uploadhandler.EncryptedFileUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler"
 ]
 
 WSGI_APPLICATION = 'SecureRS.wsgi.application'
@@ -176,6 +186,7 @@ REST_FRAMEWORK = {
     )
 }
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # @TODO Remove to use SMTP
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -184,7 +195,9 @@ EMAIL_HOST_PASSWORD = ''  # @TODO change details
 
 DEFF_SALT = "Aasd^*&$E%%#FVTB"  # @TODO change details
 DEFF_PASSWORD = "SeC#RS_D3m0"  # @TODO change details
-DEFF_FETCH_URL_NAME = ""
+DEFF_FETCH_URL_NAME = "" 
+CRYPTOGRAPHY_SALT = "RS_D3m0"
+AES_KEY = b"ecnxgffjomxmqrtlyzrskiudiivztxyk"
 
 SUSPICIOUS = 10  # This goes in hand with the rank parameter in the PDE
 MALICIOUS = 18    # This goes in hand with the rank parameter in the PDE
@@ -195,3 +208,4 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SESSION_SECURITY_WARN_AFTER = 350
 SESSION_SECURITY_EXPIRE_AFTER = 50000
+

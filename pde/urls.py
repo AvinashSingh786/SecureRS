@@ -1,6 +1,6 @@
 """Example URL configuration."""
 
-from django.conf.urls import url
+from django.urls import path, re_path
 from django.http import HttpResponse
 from . import views
 from django_encrypted_filefield.constants import FETCH_URL_NAME
@@ -9,11 +9,11 @@ from django_encrypted_filefield.views import FetchView
 from .views import add, index
 
 urlpatterns = [
-    url(r'^$', views.index, name='pde'),
-    url(r'^details/(?P<user>\w+)$', views.details, name='user'),
-    url(r'^add/$', views.add, name='add'),
+    re_path(r'^$', views.index, name='pde'),
+    re_path(r'^details/(?P<user>\w+)$', views.details, name='user'),
+    re_path(r'^add/$', views.add, name='add'),
     # url(r'files/(?P<path>.*)$', views.serve),
-    url(
+    re_path(
         r"^files/(?P<path>.+)",  # up to you, but path is required
         views.get, name='get'  # your view, your permissions
 

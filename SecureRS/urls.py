@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
+from django.urls import path, re_path
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
@@ -30,12 +30,12 @@ admin.site.enable_nav_sidebar = False
 urlpatterns = [
     path('admin/', admin.site.urls),
     # url(r'^settings/', include('django_mfa.urls')),
-    url(r'', include(tf_urls)),
-    url(r'^pde/', include('pde.urls')),
-    url(r'^$', RedirectView.as_view(url='pde/', permanent=False), name='index'),
-    url(r'^logout/$', LogoutView.as_view(),
+    re_path(r'', include(tf_urls)),
+    re_path(r'^pde/', include('pde.urls')),
+    re_path(r'^$', RedirectView.as_view(url='pde/', permanent=False), name='index'),
+    re_path(r'^logout/$', LogoutView.as_view(),
         {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
-    url(r'session_security/', include('session_security.urls')),
+    re_path(r'session_security/', include('session_security.urls')),
 ]
 
 #

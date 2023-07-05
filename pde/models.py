@@ -4,12 +4,11 @@ from django.db import models
 from django.db import models
 from datetime import datetime
 from django_cryptography.fields import encrypt
-from django_encrypted_filefield.fields import EncryptedFileField
 from rest_framework_api_key.models import APIKey
 
 
 class PDE(models.Model):
-    pde = encrypt(EncryptedFileField(upload_to='pde/files/', max_length=None))
+    pde = encrypt(models.FileField(upload_to='pde/files/', max_length=250))
     ip = models.CharField(max_length=16)
     machine = models.CharField(max_length=50)
     user = models.CharField(max_length=50)
