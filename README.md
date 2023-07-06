@@ -14,12 +14,13 @@ This tool can be run from a docker container that can be built using the dockerf
 git clone git@github.com:AvinashSingh786/SecureRS.git
 cd SecureRS
 python3 -m pip install --user virtualenv
-apt-get install python3-venv python3-magic # for Linux
+sudo apt-get install python3-venv python3-magic # for Linux
 python3 -m venv venv
 source venv/bin/activate # for Linux
 pip3 install python-magic-bin # for Windows
 .\venv\Scripts\activate # for Windows
-(venv)$ pip3 install -r requirements.txt 
+(venv)$ pip install -r requirements.txt 
+
 ```
 
 ## Usage
@@ -92,4 +93,15 @@ Below are screenshots of the tool.
 MIT License
 
 ## Publications
-- In-progress
+- Singh, A., Ikuesan, R.A. and Venter, H. (2022) ‘Secure storage model for digital forensic readiness’, IEEE Access, 10, pp. 19469–19480. doi:10.1109/access.2022.3151403. 
+
+## Update log
+- V1 (13/07/2021) 
+  - Initial Release
+- V2 (06/07/2023)
+  - Now make use of Django 4
+  - Upgraded encryption to use AES for speed
+  - Handles larger files
+  - Uses a custom fileupload handler for hashing before being touched by Django handlers
+  - Bug fixes and UI improvements
+  - Due to encryption changes, this version is no longer compatible with previous releases

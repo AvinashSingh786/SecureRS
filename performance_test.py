@@ -15,7 +15,7 @@ COUNTER = 1
 @profile
 def make_request(i):
     global SUCCESS, COUNTER
-    name = "UserManual.docx"
+    name = "README.md"
     hash_md5 = hashlib.md5()
     with open(name, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
