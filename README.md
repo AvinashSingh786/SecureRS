@@ -17,8 +17,8 @@ python3 -m pip install --user virtualenv
 sudo apt-get install python3-venv python3-magic # for Linux
 python3 -m venv venv
 source venv/bin/activate # for Linux
-pip3 install python-magic-bin # for Windows
 .\venv\Scripts\activate # for Windows
+pip3 install python-magic-bin # for Windows
 (venv)$ pip install -r requirements.txt 
 
 ```
@@ -27,10 +27,10 @@ pip3 install python-magic-bin # for Windows
 Run the following commands to configure and run the engine.
 
 ```bash
-(venv)$ python3 manage.py makemigrations pde  # This sets up the storage engine and databases
-(venv)$ python3 manage.py migrate          # This creates the databases and interfaces
-(venv)$ python3 manage.py createsuperuser  # Create a super user that you will use as the admin
-(venv)$ python3 manage.py runsslserver 0.0.0.0:8000  
+(venv)$ python manage.py makemigrations pde  # This sets up the storage engine and databases
+(venv)$ python manage.py migrate          # This creates the databases and interfaces
+(venv)$ python manage.py createsuperuser  # Create a super user that you will use as the admin
+(venv)$ python manage.py runsslserver 0.0.0.0:8000  
 ``` 
 
 ## Features

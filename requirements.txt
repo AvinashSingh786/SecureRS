@@ -5,6 +5,7 @@ django-formtools>=2.1
 django-encrypted-files==0.0.10
 django-otp==1.2.2
 django-otp-yubikey==1.0.1
+phonenumbers==8.13.15
 django-phonenumber-field==6.1.0
 django-random-filestorage>=0.1.0
 django-secure>=1.0.2

@@ -3,9 +3,6 @@
 from django.urls import path, re_path
 from django.http import HttpResponse
 from . import views
-from django_encrypted_filefield.constants import FETCH_URL_NAME
-from django_encrypted_filefield.views import FetchView
-
 from .views import add, index
 
 urlpatterns = [
